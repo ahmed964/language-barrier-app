@@ -8,14 +8,14 @@ const port = process.env.PORT || 5000;
 
 // Connect with MongoDB
 
-try{
-  mongoose.connect('mongodb+srv://ahmedmazhar964:DCo5WQId56NeHCPi@staticappsdb.g5rd04a.mongodb.net/LB_DevData_26032024');
-  console.log("Succesfully Connected to DB")
-}
-catch(error)
-{
-  console.log("Not Connected to DB")
-}
+// try{
+//   mongoose.connect('mongodb+srv://ahmedmazhar964:DCo5WQId56NeHCPi@staticappsdb.g5rd04a.mongodb.net/LB_DevData_26032024');
+//   console.log("Succesfully Connected to DB")
+// }
+// catch(error)
+// {
+//   console.log("Not Connected to DB")
+// }
 
 //Endpoints for HTML
 app.get('/', (req, res) => {
