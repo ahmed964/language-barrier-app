@@ -1,21 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose')
+const dotenv = require('dotenv')
 
 const app = express()
 app.use(express.json({extended:true}))
 app.use(express.urlencoded({extended : true}))
-const port = process.env.PORT || 5000;
+dotenv.config()
 
+const port = process.env.PORT || 5000;
+const mongo_db_url = process.env.MONGO_DB_URL;
 // Connect with MongoDB
 
-// try{
-//   mongoose.connect('mongodb+srv://ahmedmazhar964:DCo5WQId56NeHCPi@staticappsdb.g5rd04a.mongodb.net/LB_DevData_26032024');
-//   console.log("Succesfully Connected to DB")
-// }
-// catch(error)
-// {
-//   console.log("Not Connected to DB")
-// }
+try{
+  mongoose.connect(mongo_db_url);
+  console.log("Succesfully Connected to DB")
+}
+catch(error)
+{
+  console.log("Not Connected to DB")
+}
 
 //Endpoints for HTML
 app.get('/', (req, res) => {
