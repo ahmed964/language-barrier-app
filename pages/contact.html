@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="utf-8">
     <title>Language Barriers</title>
@@ -32,7 +30,6 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
-
 <body>
     <!-- Spinner Start -->
     <div id="spinner"
@@ -210,6 +207,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="alert alert-success" id ="successMessage">
+                        Thank you for contacting us, We'll get back to you shortly.
+                    </div>
                 </div>
                 <div class="col-lg-6 wow slideInUp" data-wow-delay="0.6s">
                     <iframe class="position-relative rounded w-100 h-100"
@@ -217,6 +217,8 @@
                         frameborder="0" style="min-height: 350px; border:0;" allowfullscreen="" aria-hidden="false"
                         tabindex="0"></iframe>
                 </div>
+
+                
             </div>
         </div>
     </div>
@@ -370,6 +372,10 @@
     <script src="js/main.js"></script>
 
     <script>
+
+        function showAlert(){
+        }
+
         //Save Contact Us details
         async function postData(url = "", data = {}) {
             const response = await fetch(url, {
@@ -380,21 +386,42 @@
                 },
                 body: JSON.stringify(data), 
             });
-            return response.json(); 
+            let rData = await response.json();
+            return rData;
         }
         //Add a click listener for Submit button
         let submit = document.getElementById("submit")
-        submit.addEventListener("click", () => {
+        submit.addEventListener("click", async() => {
             let name = document.getElementById("fullName").value
             let email = document.getElementById("email").value
             let phone = document.getElementById("phone").value
             let company = document.getElementById("company").value
-            let fromLanguages = document.getElementById("fromLanguage").value
-            let intoLanguages = document.getElementById("intoLanguage").value
+            let fromLanguage = document.getElementById("fromLanguage").value
+            let intoLanguage = document.getElementById("intoLanguage").value
             let message = document.getElementById("message").value
-            console.log("Submitting this data", name, phone, company, fromLanguages, intoLanguages, message)
+            let isQuote = false
+            console.log("Submitting this data")
+            let resp = await postData("/saveFreeQuote" , {name, email,phone,company,fromLanguage,intoLanguage,message,isQuote})
+            console.log(resp);
+            if(resp.success)
+            {
+                alert("Thank you for contacting us, We'll get back to you shortly")
+                document.getElementById("fullName").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("phone").value = "";
+                document.getElementById("company").value = "";
+                document.getElementById("fromLanguage").value = "";
+                document.getElementById("intoLanguage").value = "";
+                document.getElementById("message").value = "";
+
+                $(document).ready(function() {
+                document.getElementById("successMessage").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("successMessage").style.display = "none";
+                }, 5000);
+            });
+            }
         });
-        const contactId = postData('/saveContactDetails')
     </script>
 </body>
 </html>

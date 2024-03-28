@@ -1,12 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+const Quote = require('./models/Quote')
 
 const app = express()
 app.use(express.json({extended:true}))
 app.use(express.urlencoded({extended : true}))
+
+app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/pages'));
+
+// To load env file
 dotenv.config()
 
+//using enviroement variable
 const port = process.env.PORT || 5000;
 const mongo_db_url = process.env.MONGO_DB_URL;
 
@@ -55,28 +62,17 @@ app.get('/detail', (req, res) => {
 })
 
 //Endpoints for APIs
-app.post('/saveContactDetails', (req, res) => {
+app.post('/saveFreeQuote', async(req, res) => {
   const { userToken } = req.body
-  res.sendFile("pages/detail.html", {root: __dirname})
-})
-
-app.post('/saveFreeQuote', (req, res) => {
-  const { userToken } = req.body
-  res.sendFile("pages/detail.html", {root: __dirname})
-})
-
-app.post('/getAllContactDetails', (req, res) => {
-  const { userToken } = req.body
-  res.sendFile("pages/detail.html", {root: __dirname})
+  console.log(req.body);
+  let quote = await Quote.create(req.body)
+  res.status(200).json({success:true, quote: quote})
 })
 
 app.post('/getAllFreeQuotes', (req, res) => {
   const { userToken } = req.body
   res.sendFile("pages/detail.html", {root: __dirname})
 })
-
-app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/pages'));
 
 
 app.listen(port || 5000, () => {

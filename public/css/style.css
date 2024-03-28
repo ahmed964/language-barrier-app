@@ -485,6 +485,11 @@ h6,
     padding-left: 10px;
 }
 
+#successMessage{
+    margin: 20px;
+    display : none
+}
+
 @media (min-width: 767.98px) {
     .footer-about {
         margin-bottom: -75px;
