@@ -476,6 +476,14 @@ h6,
     background: linear-gradient(rgba(9, 30, 62, .7), rgba(9, 30, 62, .7)), url(../img/carousel-1.jpg) center center no-repeat;
     background-size: cover;
 }
+.bg-header-service {
+    background: linear-gradient(rgba(9, 30, 62, .7), rgba(9, 30, 62, .7)), url(../img/carousel-14.jpg) center center no-repeat;
+    background-size: cover;
+}
+.bg-header-language {
+    background: linear-gradient(rgba(9, 30, 62, .7), rgba(9, 30, 62, .7)), url(../img/carousel-5.jpg) center center no-repeat;
+    background-size: cover;
+}
 
 .link-animated a {
     transition: .5s;
