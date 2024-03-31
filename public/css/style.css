@@ -484,6 +484,10 @@ h6,
     background: linear-gradient(rgba(9, 30, 62, .7), rgba(9, 30, 62, .7)), url(../img/carousel-5.jpg) center center no-repeat;
     background-size: cover;
 }
+.bg-header-rate {
+    background: linear-gradient(rgba(9, 30, 62, .7), rgba(9, 30, 62, .7)), url(../img/carousel-17.jpg) center center no-repeat;
+    background-size: cover;
+}
 
 .link-animated a {
     transition: .5s;
