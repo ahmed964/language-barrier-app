@@ -46,7 +46,7 @@ app.get('/contact', (req, res) => {
   res.sendFile("pages/contact.html", {root: __dirname})
 })
 app.get('/recruitment', (req, res) => {
-  res.sendFile("pages/detail.html", {root: __dirname})
+  res.sendFile("pages/recruitment.html", {root: __dirname})
 })
 app.get('/quote', (req, res) => {
   res.sendFile("pages/quote.html", {root: __dirname})
@@ -56,9 +56,6 @@ app.get('/rate', (req, res) => {
 })
 app.get('/service', (req, res) => {
   res.sendFile("pages/service.html", {root: __dirname})
-})
-app.get('/detail', (req, res) => {
-  res.sendFile("pages/detail.html", {root: __dirname})
 })
 
 //Endpoints for APIs
@@ -71,7 +68,7 @@ app.post('/saveFreeQuote', async(req, res) => {
 
 app.post('/getAllFreeQuotes', (req, res) => {
   const { userToken } = req.body
-  res.sendFile("pages/detail.html", {root: __dirname})
+  res.sendFile("pages/recruitment.html", {root: __dirname})
 })
 
 

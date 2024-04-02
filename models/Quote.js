@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const quoteSchema = new Schema({
     name: {type: String, required: true}, 
-    email: {type: String, required: true, unique: true},
+    email: {type: String, required: true},
     phone: {type: String, required: false},
     company: {type: String, required: false},
     fromLanguage: {type: String, required: true},
