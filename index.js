@@ -57,6 +57,9 @@ app.get('/rate', (req, res) => {
 app.get('/service', (req, res) => {
   res.sendFile("pages/service.html", {root: __dirname})
 })
+app.get('/savedQuotes', (req, res) => {
+  res.sendFile("pages/savedQuotes.html", {root: __dirname})
+})
 
 //Endpoints for APIs
 app.post('/saveFreeQuote', async(req, res) => {
@@ -66,11 +69,10 @@ app.post('/saveFreeQuote', async(req, res) => {
   res.status(200).json({success:true, quote: quote})
 })
 
-app.post('/getAllFreeQuotes', (req, res) => {
-  const { userToken } = req.body
-  res.sendFile("pages/recruitment.html", {root: __dirname})
+app.post('/getAllFreeQuotes', async(req, res) => {
+  let quotes = await Quote.find()
+  res.status(200).json({success:true, quotes})
 })
-
 
 app.listen(port || 5000, () => {
   console.log(`App listening on port http://localhost:${port}`)

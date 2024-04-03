@@ -71,7 +71,7 @@
     <div class="container-fluid position-relative p-0">
         <nav class="navbar navbar-expand-lg navbar-dark px-4 py-3 py-lg-0">
             <a href="home" class="navbar-brand p-0">
-                <h1 class="m-0"><i class="fa fa-language me-2 me-2"></i>Language Barrier</h1>
+                <h1 class="mb-0"><img src="img/icon.png" alt="Custom Icon" class="me-2" style="width: 48px; height: 48px;"/>Language Barrier</h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars"></span>
@@ -80,6 +80,7 @@
                 <div class="navbar-nav ms-auto py-0">
                     <a href="home" class="nav-item nav-link">Home</a>
                     <a href="service" class="nav-item nav-link">Services</a>
+                    <a href="language" class="nav-item nav-link">Languages</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Careers</a>
                         <div class="dropdown-menu m-0">
@@ -94,7 +95,7 @@
             </div>
         </nav>
 
-        <div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
+        <div class="container-fluid bg-primary py-5 bg-header-quote" style="margin-bottom: 90px;">
             <div class="row py-5">
                 <div class="col-12 pt-lg-5 mt-lg-5 text-center">
                     <h1 class="display-4 text-white animated zoomIn">Free Quote</h1>
@@ -195,8 +196,15 @@
                                         placeholder="Message / Project Details"></textarea>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-dark w-100 py-3" type="submit">Request A Quote</button>
+                                    <button class="btn btn-dark w-100 py-3" type="submit" id="submit">
+                                        Request A Quote</button>
                                 </div>
+                            </div>
+                            <div class="alert alert-success" id="successMessage">
+                                Thank you for Contacting Language Barrier, We'll get back to you shortly.
+                            </div>
+                            <div class="alert alert-danger" id="failureMessage" role="alert">
+                                Please fill the mandatory field(s)
                             </div>
                         </div>
                     </div>
@@ -355,6 +363,65 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+        //Save Contact Us details
+        async function postData(url = "", data = {}) {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data),
+            });
+            let rData = await response.json();
+            return rData;
+        }
+        //Add a click listener for Submit button
+        let submit = document.getElementById("submit")
+        submit.addEventListener("click", async () => {
+            let name = document.getElementById("fullName").value
+            let email = document.getElementById("email").value
+            let phone = document.getElementById("phone").value
+            let company = document.getElementById("company").value
+            let fromLanguage = document.getElementById("fromLanguage").value
+            let intoLanguage = document.getElementById("intoLanguage").value
+            let message = document.getElementById("message").value
+            let isQuote = true
+            console.log("Submitting this data")
+
+            if (name == "" || email == "" || phone == "" || fromLanguage == "" || intoLanguage == "") 
+            {
+                $(document).ready(function () {
+                        document.getElementById("failureMessage").style.display = "block";
+                        setTimeout(function () {
+                            document.getElementById("failureMessage").style.display = "none";
+                        }, 5000);
+                    });
+            }
+            else 
+            {
+                let resp = await postData("/saveFreeQuote", { name, email, phone, company, fromLanguage, intoLanguage, message, isQuote })
+                if (resp.success) {
+                    document.getElementById("fullName").value = "";
+                    document.getElementById("email").value = "";
+                    document.getElementById("phone").value = "";
+                    document.getElementById("company").value = "";
+                    document.getElementById("fromLanguage").value = "";
+                    document.getElementById("intoLanguage").value = "";
+                    document.getElementById("message").value = "";
+
+                    $(document).ready(function () {
+                        document.getElementById("successMessage").style.display = "block";
+                        setTimeout(function () {
+                            document.getElementById("successMessage").style.display = "none";
+                        }, 5000);
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
